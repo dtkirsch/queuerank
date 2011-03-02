@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @movie.title %>
+</p>
+
+<p>
+  <b>Nominated by user:</b>
+  <%= @movie.nominated_by_user_id %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%= @movie.url %>
+</p>
+
+<p>
+  <b>Watched on:</b>
+  <%= @movie.watched_on %>
+</p>
+
+<p>
+  <b>Created at:</b>
+  <%= @movie.created_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_movie_path(@movie) %> |
+<%= link_to 'Back', movies_path %>
