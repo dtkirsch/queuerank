@@ -35,8 +35,10 @@
 
 <% if false %>    
     <td><%= link_to 'Show', movie %></td>
+<% end %>
+<% if current_user == movie.nominated_by_user %>
     <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
-    <td><%= link_to 'Destroy', movie, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Remove from list', movie, :confirm => 'Are you sure?', :method => :delete %></td>
 <% end %>
   </tr>
 <% end %>
