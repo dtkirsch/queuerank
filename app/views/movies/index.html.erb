@@ -26,7 +26,7 @@
     <td><%= movie.score %></td>
     <td><%= movie.title %></td>
     <td><%= movie.nominated_by_user.name %></td>
-    <td><%= movie.url %></td>
+    <td><%= link_to movie.url, movie.url %></td>
     <td class="ratings" id="ratings_for_<%=movie.id%>">
 	<% if current_user %>
 		<%= render "rankings/rating_choices", :movie => movie %>
