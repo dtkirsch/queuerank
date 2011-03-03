@@ -14,7 +14,6 @@
     <th>Total Score</th>
     <th>Title</th>
     <th>Nominator</th>
-    <th>Link</th>
     <th></th>
     <th></th>
     <th></th>
@@ -24,9 +23,8 @@
   <tr>
     <td><%= rank + 1 %></td>
     <td><%= movie.score %></td>
-    <td><%= movie.title %></td>
+    <td><%= movie.url.blank? ? movie.title : (link_to movie.title, movie.url) %></td>
     <td><%= movie.nominated_by_user.name %></td>
-    <td><%= link_to movie.url, movie.url %></td>
     <td class="ratings" id="ratings_for_<%=movie.id%>">
 	<% if current_user %>
 		<%= render "rankings/rating_choices", :movie => movie %>
