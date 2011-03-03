@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110302151919) do
+ActiveRecord::Schema.define(:version => 20110302161021) do
 
   create_table "movies", :force => true do |t|
     t.string   "title"
@@ -18,6 +18,14 @@ ActiveRecord::Schema.define(:version => 20110302151919) do
     t.string   "url"
     t.time     "watched_on"
     t.time     "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rankings", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "movie_id"
+    t.float    "rank"
+    t.datetime "created_at"
     t.datetime "updated_at"
   end
 

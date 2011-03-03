@@ -1,8 +1,18 @@
 class MoviesController < ApplicationController
+  def rate
+	@movie = Movie.find(params[:id])
+  end
+  
   # GET /movies
   # GET /movies.xml
   def index
-    @movies = Movie.all
+    if params[:queue] == "user"
+	@movies = Movie.all_ranked_for_user(current_user)
+    else
+	@movies = Movie.all(:include => :rankings).sort_by{|m| m.score}.reverse
+    end
+
+    @rankings = current_user.rankings
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,10 +51,11 @@ class MoviesController < ApplicationController
   # POST /movies.xml
   def create
     @movie = Movie.new(params[:movie])
+    @movie.nominated_by_user = current_user
 
     respond_to do |format|
       if @movie.save
-        format.html { redirect_to(@movie, :notice => 'Movie was successfully created.') }
+        format.html { redirect_to(:movies, :notice => 'Movie was successfully added.') }
         format.xml  { render :xml => @movie, :status => :created, :location => @movie }
       else
         format.html { render :action => "new" }

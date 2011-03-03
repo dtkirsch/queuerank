@@ -1,31 +1,45 @@
-<h1>Listing movies</h1>
+
+
+
+<h1>Classic Movie Queue</h1>
+
+<% if false %>
+<%= link_to 'My Queue', movies_path(:queue => "user") %> | 
+<%= link_to 'Combined Queue', movies_path %>
+<% end %>
 
 <table>
   <tr>
+    <th>Rank</th>
+    <th>Total Score</th>
     <th>Title</th>
-    <th>Nominated by user</th>
-    <th>Url</th>
-    <th>Watched on</th>
-    <th>Created at</th>
+    <th>Nominator</th>
+    <th>Link</th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
 
-<% @movies.each do |movie| %>
+<% @movies.each_with_index do |movie, rank| %>
   <tr>
+    <td><%= rank + 1 %></td>
+    <td><%= movie.score %></td>
     <td><%= movie.title %></td>
-    <td><%= movie.nominated_by_user_id %></td>
+    <td><%= movie.nominated_by_user.name %></td>
     <td><%= movie.url %></td>
-    <td><%= movie.watched_on %></td>
-    <td><%= movie.created_at %></td>
+    <td class="ratings" id="ratings_for_<%=movie.id%>">
+	<%= render "rankings/rating_choices", :movie => movie %>
+    </td>
+
+<% if false %>    
     <td><%= link_to 'Show', movie %></td>
     <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
     <td><%= link_to 'Destroy', movie, :confirm => 'Are you sure?', :method => :delete %></td>
+<% end %>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Movie', new_movie_path %>
+<%= link_to 'Add a Movie', new_movie_path %>

@@ -1,0 +1,1 @@
+page.replace_html("ratings_for_#{@ranking.movie_id}" , render("rankings/rating_choices", :movie => @ranking.movie))
