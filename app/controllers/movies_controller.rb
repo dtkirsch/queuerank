@@ -12,7 +12,7 @@ class MoviesController < ApplicationController
 	@movies = Movie.all(:include => :rankings).sort_by{|m| m.score}.reverse
     end
 
-    @rankings = current_user.rankings
+    @rankings = current_user.rankings if current_user
 
     respond_to do |format|
       format.html # index.html.erb
