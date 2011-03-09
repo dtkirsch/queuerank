@@ -6,7 +6,7 @@ class Movie < ActiveRecord::Base
 		user.rankings.map{|r| r.movie} | all
 	end
 	
-	def score
-		rankings.map{|r| r.rank}.sum.to_i
+	def score(restrict_to_users = nil)
+		rankings.select{|r| restrict_to_users.nil? || restrict_to_users.map{|u| u.id}.include?(r.user_id)}.map{|r| r.rank}.sum.to_i
 	end
 end

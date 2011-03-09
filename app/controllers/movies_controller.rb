@@ -6,10 +6,13 @@ class MoviesController < ApplicationController
   # GET /movies
   # GET /movies.xml
   def index
+    @filter = true if params[:commit]
+    @selected_users = params[:user_ids] ? params[:user_ids].values.map{|id| User.find(id)} : User.all
+    
     if params[:queue] == "user"
 	@movies = Movie.all_ranked_for_user(current_user)
     else
-	@movies = Movie.all(:include => :rankings).sort_by{|m| m.score}.reverse
+	@movies = Movie.all(:include => :rankings).sort_by{|m| m.score(@selected_users)}.reverse
     end
 
     @rankings = current_user.rankings if current_user

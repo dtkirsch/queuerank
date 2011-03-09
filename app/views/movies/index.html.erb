@@ -8,6 +8,16 @@
 <%= link_to 'Combined Queue', movies_path %>
 <% end %>
 
+Filter queue rankings:
+<% form_tag '', :method => :get do %>
+  <% User.all.each do |user| %>
+    <%= check_box_tag "user_ids[#{user.id}]", "#{user.id}", @selected_users.include?(user) %>
+    <%= label_tag "user_ids_#{user.id}", "#{user.name}" %>
+  <% end %>
+  <%= submit_tag 'Filter' %>
+<% end %>
+<%= link_to 'Return to unfiltered queue', movies_path if @filter%>
+
 <table>
   <tr>
     <th>Rank</th>
@@ -22,7 +32,7 @@
 <% @movies.each_with_index do |movie, rank| %>
   <tr>
     <td><%= rank + 1 %></td>
-    <td><%= movie.score %></td>
+    <td><%= movie.score(@selected_users) %></td>
     <td><%= movie.url.blank? ? movie.title : (link_to movie.title, movie.url) %></td>
     <td><%= movie.nominated_by_user.name %></td>
     <td class="ratings" id="ratings_for_<%=movie.id%>">
