@@ -10,9 +10,9 @@
 
 Filter queue rankings:
 <% form_tag '', :method => :get do %>
-  <% User.all.each do |user| %>
+  <% User.all.sort_by{|u| u.name}.each do |user| %>
     <%= check_box_tag "user_ids[#{user.id}]", "#{user.id}", @selected_users.include?(user) %>
-    <%= label_tag "user_ids_#{user.id}", "#{user.name}" %>
+    <%= label_tag "user_ids_#{user.id}", "#{user.name}", :class => "user_label" %>
   <% end %>
   <%= submit_tag 'Filter' %>
 <% end %>
