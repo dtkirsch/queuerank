@@ -2,7 +2,7 @@ class MoviesController < ApplicationController
   def rate
 	@movie = Movie.find(params[:id])
   end
-  
+
   # GET /movies
   # GET /movies.xml
   def index
@@ -12,7 +12,7 @@ class MoviesController < ApplicationController
     if params[:queue] == "user"
 	@movies = Movie.all_ranked_for_user(current_user)
     else
-	@movies = Movie.all(:include => :rankings).sort_by{|m| m.score(@selected_users)}.reverse
+	@movies = Movie.where("watched_on is null",  :include => :rankings).sort_by{|m| m.score(@selected_users)}.reverse
     end
 
     @rankings = current_user.rankings if current_user
